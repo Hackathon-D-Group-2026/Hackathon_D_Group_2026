@@ -1,20 +1,4 @@
 {
-  "nbformat": 4,
-  "nbformat_minor": 0,
-  "metadata": {
-    "colab": {
-      "provenance": [],
-      "authorship_tag": "ABX9TyMpQKzDNrYGkBm5y9xqPjI2",
-      "include_colab_link": true
-    },
-    "kernelspec": {
-      "name": "python3",
-      "display_name": "Python 3"
-    },
-    "language_info": {
-      "name": "python"
-    }
-  },
   "cells": [
     {
       "cell_type": "markdown",
@@ -28,7 +12,7 @@
     },
     {
       "cell_type": "code",
-      "execution_count": 1,
+      "execution_count": null,
       "metadata": {
         "colab": {
           "base_uri": "https://localhost:8080/"
@@ -38,8 +22,8 @@
       },
       "outputs": [
         {
-          "output_type": "stream",
           "name": "stderr",
+          "output_type": "stream",
           "text": [
             "WARNING:pypdf._reader:Ignoring wrong pointing object 6 0 (offset 0)\n",
             "WARNING:pypdf._reader:Ignoring wrong pointing object 9 0 (offset 0)\n",
@@ -49,8 +33,8 @@
           ]
         },
         {
-          "output_type": "stream",
           "name": "stdout",
+          "output_type": "stream",
           "text": [
             "Number of pages: 2\n",
             "Metadata:\n",
@@ -108,6 +92,7 @@
     },
     {
       "cell_type": "code",
+      "execution_count": null,
       "metadata": {
         "colab": {
           "base_uri": "https://localhost:8080/"
@@ -115,21 +100,10 @@
         "id": "d1e7b75a",
         "outputId": "4d17e96b-8b16-430f-f4e7-6e13523b5ffa"
       },
-      "source": [
-        "import pypdf\n",
-        "\n",
-        "reader = pypdf.PdfReader('/content/Dataset A Information.pdf')\n",
-        "full_text = \"\"\n",
-        "for i, page in enumerate(reader.pages):\n",
-        "    full_text += f\"--- Page {i+1} ---\\n\" + page.extract_text() + \"\\n\\n\"\n",
-        "\n",
-        "print(full_text)"
-      ],
-      "execution_count": 2,
       "outputs": [
         {
-          "output_type": "stream",
           "name": "stderr",
+          "output_type": "stream",
           "text": [
             "WARNING:pypdf._reader:Ignoring wrong pointing object 6 0 (offset 0)\n",
             "WARNING:pypdf._reader:Ignoring wrong pointing object 9 0 (offset 0)\n",
@@ -139,8 +113,8 @@
           ]
         },
         {
-          "output_type": "stream",
           "name": "stdout",
+          "output_type": "stream",
           "text": [
             "--- Page 1 ---\n",
             "Dataset Information – Dataset A \n",
@@ -214,10 +188,21 @@
             "\n"
           ]
         }
+      ],
+      "source": [
+        "import pypdf\n",
+        "\n",
+        "reader = pypdf.PdfReader('/content/Dataset A Information.pdf')\n",
+        "full_text = \"\"\n",
+        "for i, page in enumerate(reader.pages):\n",
+        "    full_text += f\"--- Page {i+1} ---\\n\" + page.extract_text() + \"\\n\\n\"\n",
+        "\n",
+        "print(full_text)"
       ]
     },
     {
       "cell_type": "code",
+      "execution_count": null,
       "metadata": {
         "colab": {
           "base_uri": "https://localhost:8080/",
@@ -226,72 +211,12 @@
         "id": "3d5b588e",
         "outputId": "0701e561-20c1-4b44-f228-e29d44d544a2"
       },
-      "source": [
-        "import pandas as pd\n",
-        "\n",
-        "# Load the dataset\n",
-        "df = pd.read_csv('/content/dataset_A_training.csv')\n",
-        "\n",
-        "# Display the first few rows\n",
-        "display(df.head())"
-      ],
-      "execution_count": 3,
       "outputs": [
         {
-          "output_type": "display_data",
           "data": {
-            "text/plain": [
-              "   respondent_id  flu_concern  flu_knowledge  behavioral_antiviral_meds  \\\n",
-              "0              1          2.0            0.0                        0.0   \n",
-              "1              2          1.0            1.0                        0.0   \n",
-              "2              3          2.0            1.0                        0.0   \n",
-              "3              4          1.0            2.0                        0.0   \n",
-              "4              5          2.0            2.0                        0.0   \n",
-              "\n",
-              "   behavioral_avoidance  behavioral_face_mask  behavioral_wash_hands  \\\n",
-              "0                   1.0                   0.0                    1.0   \n",
-              "1                   1.0                   0.0                    0.0   \n",
-              "2                   1.0                   0.0                    1.0   \n",
-              "3                   1.0                   0.0                    1.0   \n",
-              "4                   1.0                   0.0                    1.0   \n",
-              "\n",
-              "   behavioral_large_gatherings  behavioral_outside_home  \\\n",
-              "0                          1.0                      0.0   \n",
-              "1                          0.0                      0.0   \n",
-              "2                          1.0                      1.0   \n",
-              "3                          0.0                      0.0   \n",
-              "4                          1.0                      1.0   \n",
-              "\n",
-              "   behavioral_touch_face  ...             income_poverty  marital_status  \\\n",
-              "0                    0.0  ...  <= $75,000, Above Poverty     Not Married   \n",
-              "1                    0.0  ...                        NaN     Not Married   \n",
-              "2                    0.0  ...                  > $75,000         Married   \n",
-              "3                    1.0  ...  <= $75,000, Above Poverty         Married   \n",
-              "4                    1.0  ...              Below Poverty     Not Married   \n",
-              "\n",
-              "   rent_or_own   employment_status                census_msa  \\\n",
-              "0         Rent            Employed                   Non-MSA   \n",
-              "1         Rent            Employed       MSA, Principle City   \n",
-              "2          Own  Not in Labor Force  MSA, Not Principle  City   \n",
-              "3          Own            Employed  MSA, Not Principle  City   \n",
-              "4         Rent  Not in Labor Force  MSA, Not Principle  City   \n",
-              "\n",
-              "   household_adults  household_children employment_sector  \\\n",
-              "0               0.0                 0.0     entertainment   \n",
-              "1               1.0                 0.0         education   \n",
-              "2               1.0                 0.0               NaN   \n",
-              "3               1.0                 2.0         utilities   \n",
-              "4               2.0                 0.0               NaN   \n",
-              "\n",
-              "  number_chronic_med_conditions seasonal_vaccine  \n",
-              "0                             0                0  \n",
-              "1                             0                0  \n",
-              "2                             0                0  \n",
-              "3                             0                1  \n",
-              "4                             1                0  \n",
-              "\n",
-              "[5 rows x 31 columns]"
-            ],
+            "application/vnd.google.colaboratory.intrinsic+json": {
+              "type": "dataframe"
+            },
             "text/html": [
               "\n",
               "  <div id=\"df-40aa96e1-5a6c-476f-9fcf-f8639a553386\" class=\"colab-df-container\">\n",
@@ -544,16 +469,76 @@
               "    </div>\n",
               "  </div>\n"
             ],
-            "application/vnd.google.colaboratory.intrinsic+json": {
-              "type": "dataframe"
-            }
+            "text/plain": [
+              "   respondent_id  flu_concern  flu_knowledge  behavioral_antiviral_meds  \\\n",
+              "0              1          2.0            0.0                        0.0   \n",
+              "1              2          1.0            1.0                        0.0   \n",
+              "2              3          2.0            1.0                        0.0   \n",
+              "3              4          1.0            2.0                        0.0   \n",
+              "4              5          2.0            2.0                        0.0   \n",
+              "\n",
+              "   behavioral_avoidance  behavioral_face_mask  behavioral_wash_hands  \\\n",
+              "0                   1.0                   0.0                    1.0   \n",
+              "1                   1.0                   0.0                    0.0   \n",
+              "2                   1.0                   0.0                    1.0   \n",
+              "3                   1.0                   0.0                    1.0   \n",
+              "4                   1.0                   0.0                    1.0   \n",
+              "\n",
+              "   behavioral_large_gatherings  behavioral_outside_home  \\\n",
+              "0                          1.0                      0.0   \n",
+              "1                          0.0                      0.0   \n",
+              "2                          1.0                      1.0   \n",
+              "3                          0.0                      0.0   \n",
+              "4                          1.0                      1.0   \n",
+              "\n",
+              "   behavioral_touch_face  ...             income_poverty  marital_status  \\\n",
+              "0                    0.0  ...  <= $75,000, Above Poverty     Not Married   \n",
+              "1                    0.0  ...                        NaN     Not Married   \n",
+              "2                    0.0  ...                  > $75,000         Married   \n",
+              "3                    1.0  ...  <= $75,000, Above Poverty         Married   \n",
+              "4                    1.0  ...              Below Poverty     Not Married   \n",
+              "\n",
+              "   rent_or_own   employment_status                census_msa  \\\n",
+              "0         Rent            Employed                   Non-MSA   \n",
+              "1         Rent            Employed       MSA, Principle City   \n",
+              "2          Own  Not in Labor Force  MSA, Not Principle  City   \n",
+              "3          Own            Employed  MSA, Not Principle  City   \n",
+              "4         Rent  Not in Labor Force  MSA, Not Principle  City   \n",
+              "\n",
+              "   household_adults  household_children employment_sector  \\\n",
+              "0               0.0                 0.0     entertainment   \n",
+              "1               1.0                 0.0         education   \n",
+              "2               1.0                 0.0               NaN   \n",
+              "3               1.0                 2.0         utilities   \n",
+              "4               2.0                 0.0               NaN   \n",
+              "\n",
+              "  number_chronic_med_conditions seasonal_vaccine  \n",
+              "0                             0                0  \n",
+              "1                             0                0  \n",
+              "2                             0                0  \n",
+              "3                             0                1  \n",
+              "4                             1                0  \n",
+              "\n",
+              "[5 rows x 31 columns]"
+            ]
           },
-          "metadata": {}
+          "metadata": {},
+          "output_type": "display_data"
         }
+      ],
+      "source": [
+        "import pandas as pd\n",
+        "\n",
+        "# Load the dataset\n",
+        "df = pd.read_csv('/content/dataset_A_training.csv')\n",
+        "\n",
+        "# Display the first few rows\n",
+        "display(df.head())"
       ]
     },
     {
       "cell_type": "code",
+      "execution_count": null,
       "metadata": {
         "colab": {
           "base_uri": "https://localhost:8080/",
@@ -562,58 +547,14 @@
         "id": "044b8f1a",
         "outputId": "ceec9b9d-920e-4eda-e7f3-285cd87375bb"
       },
-      "source": [
-        "# Calculate missing value count and percentage for each column\n",
-        "missing_count = df.isnull().sum()\n",
-        "missing_percent = (df.isnull().sum() / len(df)) * 100\n",
-        "\n",
-        "# Combine into a DataFrame for visualization\n",
-        "missing_info = pd.DataFrame({\n",
-        "    'Missing Count': missing_count,\n",
-        "    'Percentage (%)': missing_percent\n",
-        "}).sort_values(by='Missing Count', ascending=False)\n",
-        "\n",
-        "display(missing_info)"
-      ],
-      "execution_count": 4,
       "outputs": [
         {
-          "output_type": "display_data",
           "data": {
-            "text/plain": [
-              "                               Missing Count  Percentage (%)\n",
-              "employment_sector                       2314       48.654331\n",
-              "health_insurance                        1925       40.475189\n",
-              "income_poverty                           790       16.610597\n",
-              "rent_or_own                              381        8.010934\n",
-              "doctor_recc_seasonal                     321        6.749369\n",
-              "education                                270        5.677040\n",
-              "employment_status                        269        5.656013\n",
-              "marital_status                           265        5.571909\n",
-              "child_under_6_months                     152        3.195963\n",
-              "health_worker                            149        3.132885\n",
-              "opinion_seas_risk                        102        2.144659\n",
-              "opinion_seas_sick_from_vacc              101        2.123633\n",
-              "opinion_seas_vacc_effective               94        1.976451\n",
-              "household_adults                          44        0.925147\n",
-              "household_children                        44        0.925147\n",
-              "behavioral_avoidance                      32        0.672834\n",
-              "flu_knowledge                             23        0.483600\n",
-              "behavioral_touch_face                     19        0.399495\n",
-              "behavioral_antiviral_meds                 14        0.294365\n",
-              "flu_concern                               12        0.252313\n",
-              "behavioral_large_gatherings                9        0.189235\n",
-              "behavioral_outside_home                    9        0.189235\n",
-              "behavioral_wash_hands                      8        0.168209\n",
-              "behavioral_face_mask                       3        0.063078\n",
-              "respondent_id                              0        0.000000\n",
-              "age_group                                  0        0.000000\n",
-              "sex                                        0        0.000000\n",
-              "race                                       0        0.000000\n",
-              "census_msa                                 0        0.000000\n",
-              "number_chronic_med_conditions              0        0.000000\n",
-              "seasonal_vaccine                           0        0.000000"
-            ],
+            "application/vnd.google.colaboratory.intrinsic+json": {
+              "summary": "{\n  \"name\": \"missing_info\",\n  \"rows\": 31,\n  \"fields\": [\n    {\n      \"column\": \"Missing Count\",\n      \"properties\": {\n        \"dtype\": \"number\",\n        \"std\": 531,\n        \"min\": 0,\n        \"max\": 2314,\n        \"num_unique_values\": 23,\n        \"samples\": [\n          23,\n          149,\n          2314\n        ],\n        \"semantic_type\": \"\",\n        \"description\": \"\"\n      }\n    },\n    {\n      \"column\": \"Percentage (%)\",\n      \"properties\": {\n        \"dtype\": \"number\",\n        \"std\": 11.18306053050424,\n        \"min\": 0.0,\n        \"max\": 48.65433137089992,\n        \"num_unique_values\": 23,\n        \"samples\": [\n          0.4835996635828428,\n          3.1328847771236332,\n          48.65433137089992\n        ],\n        \"semantic_type\": \"\",\n        \"description\": \"\"\n      }\n    }\n  ]\n}",
+              "type": "dataframe",
+              "variable_name": "missing_info"
+            },
             "text/html": [
               "\n",
               "  <div id=\"df-e97aa1d7-7161-434c-816b-0adddec5d62e\" class=\"colab-df-container\">\n",
@@ -936,18 +877,62 @@
               "    </div>\n",
               "  </div>\n"
             ],
-            "application/vnd.google.colaboratory.intrinsic+json": {
-              "type": "dataframe",
-              "variable_name": "missing_info",
-              "summary": "{\n  \"name\": \"missing_info\",\n  \"rows\": 31,\n  \"fields\": [\n    {\n      \"column\": \"Missing Count\",\n      \"properties\": {\n        \"dtype\": \"number\",\n        \"std\": 531,\n        \"min\": 0,\n        \"max\": 2314,\n        \"num_unique_values\": 23,\n        \"samples\": [\n          23,\n          149,\n          2314\n        ],\n        \"semantic_type\": \"\",\n        \"description\": \"\"\n      }\n    },\n    {\n      \"column\": \"Percentage (%)\",\n      \"properties\": {\n        \"dtype\": \"number\",\n        \"std\": 11.18306053050424,\n        \"min\": 0.0,\n        \"max\": 48.65433137089992,\n        \"num_unique_values\": 23,\n        \"samples\": [\n          0.4835996635828428,\n          3.1328847771236332,\n          48.65433137089992\n        ],\n        \"semantic_type\": \"\",\n        \"description\": \"\"\n      }\n    }\n  ]\n}"
-            }
+            "text/plain": [
+              "                               Missing Count  Percentage (%)\n",
+              "employment_sector                       2314       48.654331\n",
+              "health_insurance                        1925       40.475189\n",
+              "income_poverty                           790       16.610597\n",
+              "rent_or_own                              381        8.010934\n",
+              "doctor_recc_seasonal                     321        6.749369\n",
+              "education                                270        5.677040\n",
+              "employment_status                        269        5.656013\n",
+              "marital_status                           265        5.571909\n",
+              "child_under_6_months                     152        3.195963\n",
+              "health_worker                            149        3.132885\n",
+              "opinion_seas_risk                        102        2.144659\n",
+              "opinion_seas_sick_from_vacc              101        2.123633\n",
+              "opinion_seas_vacc_effective               94        1.976451\n",
+              "household_adults                          44        0.925147\n",
+              "household_children                        44        0.925147\n",
+              "behavioral_avoidance                      32        0.672834\n",
+              "flu_knowledge                             23        0.483600\n",
+              "behavioral_touch_face                     19        0.399495\n",
+              "behavioral_antiviral_meds                 14        0.294365\n",
+              "flu_concern                               12        0.252313\n",
+              "behavioral_large_gatherings                9        0.189235\n",
+              "behavioral_outside_home                    9        0.189235\n",
+              "behavioral_wash_hands                      8        0.168209\n",
+              "behavioral_face_mask                       3        0.063078\n",
+              "respondent_id                              0        0.000000\n",
+              "age_group                                  0        0.000000\n",
+              "sex                                        0        0.000000\n",
+              "race                                       0        0.000000\n",
+              "census_msa                                 0        0.000000\n",
+              "number_chronic_med_conditions              0        0.000000\n",
+              "seasonal_vaccine                           0        0.000000"
+            ]
           },
-          "metadata": {}
+          "metadata": {},
+          "output_type": "display_data"
         }
+      ],
+      "source": [
+        "# Calculate missing value count and percentage for each column\n",
+        "missing_count = df.isnull().sum()\n",
+        "missing_percent = (df.isnull().sum() / len(df)) * 100\n",
+        "\n",
+        "# Combine into a DataFrame for visualization\n",
+        "missing_info = pd.DataFrame({\n",
+        "    'Missing Count': missing_count,\n",
+        "    'Percentage (%)': missing_percent\n",
+        "}).sort_values(by='Missing Count', ascending=False)\n",
+        "\n",
+        "display(missing_info)"
       ]
     },
     {
       "cell_type": "code",
+      "execution_count": null,
       "metadata": {
         "colab": {
           "base_uri": "https://localhost:8080/",
@@ -956,118 +941,19 @@
         "id": "12c96d2e",
         "outputId": "c2e72d12-743d-4894-f221-d36f713b0f90"
       },
-      "source": [
-        "# Create a copy of the dataframe for preprocessing\n",
-        "df_cleaned = df.copy()\n",
-        "\n",
-        "# Define categorical columns to fill with 'Unknown'\n",
-        "cat_cols_to_unknown = [\n",
-        "    'employment_sector',\n",
-        "    'income_poverty',\n",
-        "    'rent_or_own',\n",
-        "    'education',\n",
-        "    'employment_status',\n",
-        "    'marital_status'\n",
-        "]\n",
-        "\n",
-        "for col in cat_cols_to_unknown:\n",
-        "    df_cleaned[col] = df_cleaned[col].fillna('Unknown')\n",
-        "\n",
-        "# For binary and ordinal features with missing values, impute with the mode\n",
-        "columns_to_impute_mode = [\n",
-        "    'health_insurance',\n",
-        "    'doctor_recc_seasonal',\n",
-        "    'child_under_6_months',\n",
-        "    'health_worker',\n",
-        "    'opinion_seas_risk',\n",
-        "    'opinion_seas_sick_from_vacc',\n",
-        "    'opinion_seas_vacc_effective',\n",
-        "    'household_adults',\n",
-        "    'household_children',\n",
-        "    'behavioral_avoidance',\n",
-        "    'flu_knowledge',\n",
-        "    'behavioral_touch_face',\n",
-        "    'behavioral_antiviral_meds',\n",
-        "    'flu_concern',\n",
-        "    'behavioral_large_gatherings',\n",
-        "    'behavioral_outside_home',\n",
-        "    'behavioral_wash_hands',\n",
-        "    'behavioral_face_mask'\n",
-        "]\n",
-        "\n",
-        "for col in columns_to_impute_mode:\n",
-        "    mode_val = df_cleaned[col].mode()[0]\n",
-        "    df_cleaned[col] = df_cleaned[col].fillna(mode_val)\n",
-        "\n",
-        "# Check if there are any remaining missing values\n",
-        "remaining_missing = df_cleaned.isnull().sum().sum()\n",
-        "print(f\"Total missing values remaining: {remaining_missing}\")\n",
-        "display(df_cleaned.head())"
-      ],
-      "execution_count": 5,
       "outputs": [
         {
-          "output_type": "stream",
           "name": "stdout",
+          "output_type": "stream",
           "text": [
             "Total missing values remaining: 0\n"
           ]
         },
         {
-          "output_type": "display_data",
           "data": {
-            "text/plain": [
-              "   respondent_id  flu_concern  flu_knowledge  behavioral_antiviral_meds  \\\n",
-              "0              1          2.0            0.0                        0.0   \n",
-              "1              2          1.0            1.0                        0.0   \n",
-              "2              3          2.0            1.0                        0.0   \n",
-              "3              4          1.0            2.0                        0.0   \n",
-              "4              5          2.0            2.0                        0.0   \n",
-              "\n",
-              "   behavioral_avoidance  behavioral_face_mask  behavioral_wash_hands  \\\n",
-              "0                   1.0                   0.0                    1.0   \n",
-              "1                   1.0                   0.0                    0.0   \n",
-              "2                   1.0                   0.0                    1.0   \n",
-              "3                   1.0                   0.0                    1.0   \n",
-              "4                   1.0                   0.0                    1.0   \n",
-              "\n",
-              "   behavioral_large_gatherings  behavioral_outside_home  \\\n",
-              "0                          1.0                      0.0   \n",
-              "1                          0.0                      0.0   \n",
-              "2                          1.0                      1.0   \n",
-              "3                          0.0                      0.0   \n",
-              "4                          1.0                      1.0   \n",
-              "\n",
-              "   behavioral_touch_face  ...             income_poverty  marital_status  \\\n",
-              "0                    0.0  ...  <= $75,000, Above Poverty     Not Married   \n",
-              "1                    0.0  ...                    Unknown     Not Married   \n",
-              "2                    0.0  ...                  > $75,000         Married   \n",
-              "3                    1.0  ...  <= $75,000, Above Poverty         Married   \n",
-              "4                    1.0  ...              Below Poverty     Not Married   \n",
-              "\n",
-              "   rent_or_own   employment_status                census_msa  \\\n",
-              "0         Rent            Employed                   Non-MSA   \n",
-              "1         Rent            Employed       MSA, Principle City   \n",
-              "2          Own  Not in Labor Force  MSA, Not Principle  City   \n",
-              "3          Own            Employed  MSA, Not Principle  City   \n",
-              "4         Rent  Not in Labor Force  MSA, Not Principle  City   \n",
-              "\n",
-              "   household_adults  household_children employment_sector  \\\n",
-              "0               0.0                 0.0     entertainment   \n",
-              "1               1.0                 0.0         education   \n",
-              "2               1.0                 0.0           Unknown   \n",
-              "3               1.0                 2.0         utilities   \n",
-              "4               2.0                 0.0           Unknown   \n",
-              "\n",
-              "  number_chronic_med_conditions seasonal_vaccine  \n",
-              "0                             0                0  \n",
-              "1                             0                0  \n",
-              "2                             0                0  \n",
-              "3                             0                1  \n",
-              "4                             1                0  \n",
-              "\n",
-              "[5 rows x 31 columns]"
-            ],
+            "application/vnd.google.colaboratory.intrinsic+json": {
+              "type": "dataframe"
+            },
             "text/html": [
               "\n",
               "  <div id=\"df-c5eb8dbc-5ca3-4e02-93ce-c5e1ca93ab75\" class=\"colab-df-container\">\n",
@@ -1320,52 +1206,6 @@
               "    </div>\n",
               "  </div>\n"
             ],
-            "application/vnd.google.colaboratory.intrinsic+json": {
-              "type": "dataframe"
-            }
-          },
-          "metadata": {}
-        }
-      ]
-    },
-    {
-      "cell_type": "code",
-      "metadata": {
-        "colab": {
-          "base_uri": "https://localhost:8080/",
-          "height": 307
-        },
-        "id": "4acb2e1a",
-        "outputId": "ee5578a7-890f-4938-80e0-b660f17d465f"
-      },
-      "source": [
-        "import pandas as pd\n",
-        "\n",
-        "# Identify columns to encode (all non-numeric object columns except potential ID/targets)\n",
-        "categorical_cols = df_cleaned.select_dtypes(include=['object', 'category']).columns.tolist()\n",
-        "print(f\"Categorical columns to be encoded: {categorical_cols}\")\n",
-        "\n",
-        "# Perform one-hot encoding\n",
-        "df_encoded = pd.get_dummies(df_cleaned, columns=categorical_cols, drop_first=True, dtype=int)\n",
-        "\n",
-        "print(f\"Shape of dataset before encoding: {df_cleaned.shape}\")\n",
-        "print(f\"Shape of dataset after encoding: {df_encoded.shape}\")\n",
-        "display(df_encoded.head())"
-      ],
-      "execution_count": 6,
-      "outputs": [
-        {
-          "output_type": "stream",
-          "name": "stdout",
-          "text": [
-            "Categorical columns to be encoded: ['age_group', 'education', 'race', 'sex', 'income_poverty', 'marital_status', 'rent_or_own', 'employment_status', 'census_msa', 'employment_sector']\n",
-            "Shape of dataset before encoding: (4756, 31)\n",
-            "Shape of dataset after encoding: (4756, 66)\n"
-          ]
-        },
-        {
-          "output_type": "display_data",
-          "data": {
             "text/plain": [
               "   respondent_id  flu_concern  flu_knowledge  behavioral_antiviral_meds  \\\n",
               "0              1          2.0            0.0                        0.0   \n",
@@ -1388,50 +1228,116 @@
               "3                          0.0                      0.0   \n",
               "4                          1.0                      1.0   \n",
               "\n",
-              "   behavioral_touch_face  ...  employment_sector_media  \\\n",
-              "0                    0.0  ...                        0   \n",
-              "1                    0.0  ...                        0   \n",
-              "2                    0.0  ...                        0   \n",
-              "3                    1.0  ...                        0   \n",
-              "4                    1.0  ...                        0   \n",
+              "   behavioral_touch_face  ...             income_poverty  marital_status  \\\n",
+              "0                    0.0  ...  <= $75,000, Above Poverty     Not Married   \n",
+              "1                    0.0  ...                    Unknown     Not Married   \n",
+              "2                    0.0  ...                  > $75,000         Married   \n",
+              "3                    1.0  ...  <= $75,000, Above Poverty         Married   \n",
+              "4                    1.0  ...              Below Poverty     Not Married   \n",
               "\n",
-              "   employment_sector_mining  employment_sector_real_estate  \\\n",
-              "0                         0                              0   \n",
-              "1                         0                              0   \n",
-              "2                         0                              0   \n",
-              "3                         0                              0   \n",
-              "4                         0                              0   \n",
+              "   rent_or_own   employment_status                census_msa  \\\n",
+              "0         Rent            Employed                   Non-MSA   \n",
+              "1         Rent            Employed       MSA, Principle City   \n",
+              "2          Own  Not in Labor Force  MSA, Not Principle  City   \n",
+              "3          Own            Employed  MSA, Not Principle  City   \n",
+              "4         Rent  Not in Labor Force  MSA, Not Principle  City   \n",
               "\n",
-              "   employment_sector_retail  employment_sector_science  \\\n",
-              "0                         0                          0   \n",
-              "1                         0                          0   \n",
-              "2                         0                          0   \n",
-              "3                         0                          0   \n",
-              "4                         0                          0   \n",
+              "   household_adults  household_children employment_sector  \\\n",
+              "0               0.0                 0.0     entertainment   \n",
+              "1               1.0                 0.0         education   \n",
+              "2               1.0                 0.0           Unknown   \n",
+              "3               1.0                 2.0         utilities   \n",
+              "4               2.0                 0.0           Unknown   \n",
               "\n",
-              "   employment_sector_services  employment_sector_technology  \\\n",
-              "0                           0                             0   \n",
-              "1                           0                             0   \n",
-              "2                           0                             0   \n",
-              "3                           0                             0   \n",
-              "4                           0                             0   \n",
+              "  number_chronic_med_conditions seasonal_vaccine  \n",
+              "0                             0                0  \n",
+              "1                             0                0  \n",
+              "2                             0                0  \n",
+              "3                             0                1  \n",
+              "4                             1                0  \n",
               "\n",
-              "   employment_sector_transportation  employment_sector_utilities  \\\n",
-              "0                                 0                            0   \n",
-              "1                                 0                            0   \n",
-              "2                                 0                            0   \n",
-              "3                                 0                            1   \n",
-              "4                                 0                            0   \n",
-              "\n",
-              "   employment_sector_wholesale  \n",
-              "0                            0  \n",
-              "1                            0  \n",
-              "2                            0  \n",
-              "3                            0  \n",
-              "4                            0  \n",
-              "\n",
-              "[5 rows x 66 columns]"
-            ],
+              "[5 rows x 31 columns]"
+            ]
+          },
+          "metadata": {},
+          "output_type": "display_data"
+        }
+      ],
+      "source": [
+        "# Create a copy of the dataframe for preprocessing\n",
+        "df_cleaned = df.copy()\n",
+        "\n",
+        "# Define categorical columns to fill with 'Unknown'\n",
+        "cat_cols_to_unknown = [\n",
+        "    'employment_sector',\n",
+        "    'income_poverty',\n",
+        "    'rent_or_own',\n",
+        "    'education',\n",
+        "    'employment_status',\n",
+        "    'marital_status'\n",
+        "]\n",
+        "\n",
+        "for col in cat_cols_to_unknown:\n",
+        "    df_cleaned[col] = df_cleaned[col].fillna('Unknown')\n",
+        "\n",
+        "# For binary and ordinal features with missing values, impute with the mode\n",
+        "columns_to_impute_mode = [\n",
+        "    'health_insurance',\n",
+        "    'doctor_recc_seasonal',\n",
+        "    'child_under_6_months',\n",
+        "    'health_worker',\n",
+        "    'opinion_seas_risk',\n",
+        "    'opinion_seas_sick_from_vacc',\n",
+        "    'opinion_seas_vacc_effective',\n",
+        "    'household_adults',\n",
+        "    'household_children',\n",
+        "    'behavioral_avoidance',\n",
+        "    'flu_knowledge',\n",
+        "    'behavioral_touch_face',\n",
+        "    'behavioral_antiviral_meds',\n",
+        "    'flu_concern',\n",
+        "    'behavioral_large_gatherings',\n",
+        "    'behavioral_outside_home',\n",
+        "    'behavioral_wash_hands',\n",
+        "    'behavioral_face_mask'\n",
+        "]\n",
+        "\n",
+        "for col in columns_to_impute_mode:\n",
+        "    mode_val = df_cleaned[col].mode()[0]\n",
+        "    df_cleaned[col] = df_cleaned[col].fillna(mode_val)\n",
+        "\n",
+        "# Check if there are any remaining missing values\n",
+        "remaining_missing = df_cleaned.isnull().sum().sum()\n",
+        "print(f\"Total missing values remaining: {remaining_missing}\")\n",
+        "display(df_cleaned.head())"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 307
+        },
+        "id": "4acb2e1a",
+        "outputId": "ee5578a7-890f-4938-80e0-b660f17d465f"
+      },
+      "outputs": [
+        {
+          "name": "stdout",
+          "output_type": "stream",
+          "text": [
+            "Categorical columns to be encoded: ['age_group', 'education', 'race', 'sex', 'income_poverty', 'marital_status', 'rent_or_own', 'employment_status', 'census_msa', 'employment_sector']\n",
+            "Shape of dataset before encoding: (4756, 31)\n",
+            "Shape of dataset after encoding: (4756, 66)\n"
+          ]
+        },
+        {
+          "data": {
+            "application/vnd.google.colaboratory.intrinsic+json": {
+              "type": "dataframe"
+            },
             "text/html": [
               "\n",
               "  <div id=\"df-392b397b-8935-4f57-b3ed-3b9aee4e9b3b\" class=\"colab-df-container\">\n",
@@ -1684,16 +1590,95 @@
               "    </div>\n",
               "  </div>\n"
             ],
-            "application/vnd.google.colaboratory.intrinsic+json": {
-              "type": "dataframe"
-            }
+            "text/plain": [
+              "   respondent_id  flu_concern  flu_knowledge  behavioral_antiviral_meds  \\\n",
+              "0              1          2.0            0.0                        0.0   \n",
+              "1              2          1.0            1.0                        0.0   \n",
+              "2              3          2.0            1.0                        0.0   \n",
+              "3              4          1.0            2.0                        0.0   \n",
+              "4              5          2.0            2.0                        0.0   \n",
+              "\n",
+              "   behavioral_avoidance  behavioral_face_mask  behavioral_wash_hands  \\\n",
+              "0                   1.0                   0.0                    1.0   \n",
+              "1                   1.0                   0.0                    0.0   \n",
+              "2                   1.0                   0.0                    1.0   \n",
+              "3                   1.0                   0.0                    1.0   \n",
+              "4                   1.0                   0.0                    1.0   \n",
+              "\n",
+              "   behavioral_large_gatherings  behavioral_outside_home  \\\n",
+              "0                          1.0                      0.0   \n",
+              "1                          0.0                      0.0   \n",
+              "2                          1.0                      1.0   \n",
+              "3                          0.0                      0.0   \n",
+              "4                          1.0                      1.0   \n",
+              "\n",
+              "   behavioral_touch_face  ...  employment_sector_media  \\\n",
+              "0                    0.0  ...                        0   \n",
+              "1                    0.0  ...                        0   \n",
+              "2                    0.0  ...                        0   \n",
+              "3                    1.0  ...                        0   \n",
+              "4                    1.0  ...                        0   \n",
+              "\n",
+              "   employment_sector_mining  employment_sector_real_estate  \\\n",
+              "0                         0                              0   \n",
+              "1                         0                              0   \n",
+              "2                         0                              0   \n",
+              "3                         0                              0   \n",
+              "4                         0                              0   \n",
+              "\n",
+              "   employment_sector_retail  employment_sector_science  \\\n",
+              "0                         0                          0   \n",
+              "1                         0                          0   \n",
+              "2                         0                          0   \n",
+              "3                         0                          0   \n",
+              "4                         0                          0   \n",
+              "\n",
+              "   employment_sector_services  employment_sector_technology  \\\n",
+              "0                           0                             0   \n",
+              "1                           0                             0   \n",
+              "2                           0                             0   \n",
+              "3                           0                             0   \n",
+              "4                           0                             0   \n",
+              "\n",
+              "   employment_sector_transportation  employment_sector_utilities  \\\n",
+              "0                                 0                            0   \n",
+              "1                                 0                            0   \n",
+              "2                                 0                            0   \n",
+              "3                                 0                            1   \n",
+              "4                                 0                            0   \n",
+              "\n",
+              "   employment_sector_wholesale  \n",
+              "0                            0  \n",
+              "1                            0  \n",
+              "2                            0  \n",
+              "3                            0  \n",
+              "4                            0  \n",
+              "\n",
+              "[5 rows x 66 columns]"
+            ]
           },
-          "metadata": {}
+          "metadata": {},
+          "output_type": "display_data"
         }
+      ],
+      "source": [
+        "import pandas as pd\n",
+        "\n",
+        "# Identify columns to encode (all non-numeric object columns except potential ID/targets)\n",
+        "categorical_cols = df_cleaned.select_dtypes(include=['object', 'category']).columns.tolist()\n",
+        "print(f\"Categorical columns to be encoded: {categorical_cols}\")\n",
+        "\n",
+        "# Perform one-hot encoding\n",
+        "df_encoded = pd.get_dummies(df_cleaned, columns=categorical_cols, drop_first=True, dtype=int)\n",
+        "\n",
+        "print(f\"Shape of dataset before encoding: {df_cleaned.shape}\")\n",
+        "print(f\"Shape of dataset after encoding: {df_encoded.shape}\")\n",
+        "display(df_encoded.head())"
       ]
     },
     {
       "cell_type": "code",
+      "execution_count": null,
       "metadata": {
         "colab": {
           "base_uri": "https://localhost:8080/"
@@ -1701,6 +1686,30 @@
         "id": "425ed009",
         "outputId": "16d4deb6-8153-49fe-f91a-42854197360f"
       },
+      "outputs": [
+        {
+          "name": "stdout",
+          "output_type": "stream",
+          "text": [
+            "X_train shape: (3804, 64)\n",
+            "X_val shape: (952, 64)\n",
+            "y_train shape: (3804,)\n",
+            "y_val shape: (952,)\n",
+            "\n",
+            "Train target distribution:\n",
+            " seasonal_vaccine\n",
+            "1    0.536278\n",
+            "0    0.463722\n",
+            "Name: proportion, dtype: float64\n",
+            "\n",
+            "Validation target distribution:\n",
+            " seasonal_vaccine\n",
+            "1    0.536765\n",
+            "0    0.463235\n",
+            "Name: proportion, dtype: float64\n"
+          ]
+        }
+      ],
       "source": [
         "from sklearn.model_selection import train_test_split\n",
         "\n",
@@ -1726,35 +1735,11 @@
         "# Check the target class distribution in the splits to verify stratification\n",
         "print(\"\\nTrain target distribution:\\n\", y_train.value_counts(normalize=True))\n",
         "print(\"\\nValidation target distribution:\\n\", y_val.value_counts(normalize=True))"
-      ],
-      "execution_count": 7,
-      "outputs": [
-        {
-          "output_type": "stream",
-          "name": "stdout",
-          "text": [
-            "X_train shape: (3804, 64)\n",
-            "X_val shape: (952, 64)\n",
-            "y_train shape: (3804,)\n",
-            "y_val shape: (952,)\n",
-            "\n",
-            "Train target distribution:\n",
-            " seasonal_vaccine\n",
-            "1    0.536278\n",
-            "0    0.463722\n",
-            "Name: proportion, dtype: float64\n",
-            "\n",
-            "Validation target distribution:\n",
-            " seasonal_vaccine\n",
-            "1    0.536765\n",
-            "0    0.463235\n",
-            "Name: proportion, dtype: float64\n"
-          ]
-        }
       ]
     },
     {
       "cell_type": "code",
+      "execution_count": null,
       "metadata": {
         "colab": {
           "base_uri": "https://localhost:8080/"
@@ -1762,6 +1747,28 @@
         "id": "e5306d02",
         "outputId": "dfef5623-4338-4b19-d453-f8dc4858ed46"
       },
+      "outputs": [
+        {
+          "name": "stdout",
+          "output_type": "stream",
+          "text": [
+            "Training Accuracy: 0.7900\n",
+            "Validation Accuracy: 0.7836\n",
+            "Validation ROC-AUC: 0.8463\n",
+            "\n",
+            "Classification Report on Validation Set:\n",
+            "              precision    recall  f1-score   support\n",
+            "\n",
+            "           0       0.77      0.77      0.77       441\n",
+            "           1       0.80      0.80      0.80       511\n",
+            "\n",
+            "    accuracy                           0.78       952\n",
+            "   macro avg       0.78      0.78      0.78       952\n",
+            "weighted avg       0.78      0.78      0.78       952\n",
+            "\n"
+          ]
+        }
+      ],
       "source": [
         "from sklearn.linear_model import LogisticRegression\n",
         "from sklearn.metrics import classification_report, roc_auc_score\n",
@@ -1789,30 +1796,167 @@
         "\n",
         "print(\"Classification Report on Validation Set:\")\n",
         "print(classification_report(y_val, y_pred_val))"
-      ],
-      "execution_count": 8,
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "48fff3bf",
+        "outputId": "d38f5c38-49a4-4064-e1de-2744b6957795"
+      },
       "outputs": [
         {
-          "output_type": "stream",
           "name": "stdout",
+          "output_type": "stream",
           "text": [
-            "Training Accuracy: 0.7900\n",
-            "Validation Accuracy: 0.7836\n",
-            "Validation ROC-AUC: 0.8463\n",
+            "Random Forest Training Accuracy: 0.9997\n",
+            "Random Forest Validation Accuracy: 0.7595\n",
+            "Random Forest Validation ROC-AUC: 0.8352\n",
             "\n",
             "Classification Report on Validation Set:\n",
             "              precision    recall  f1-score   support\n",
             "\n",
-            "           0       0.77      0.77      0.77       441\n",
-            "           1       0.80      0.80      0.80       511\n",
+            "           0       0.74      0.74      0.74       441\n",
+            "           1       0.78      0.77      0.78       511\n",
             "\n",
-            "    accuracy                           0.78       952\n",
-            "   macro avg       0.78      0.78      0.78       952\n",
-            "weighted avg       0.78      0.78      0.78       952\n",
+            "    accuracy                           0.76       952\n",
+            "   macro avg       0.76      0.76      0.76       952\n",
+            "weighted avg       0.76      0.76      0.76       952\n",
             "\n"
           ]
         }
+      ],
+      "source": [
+        "from sklearn.ensemble import RandomForestClassifier\n",
+        "from sklearn.metrics import classification_report, roc_auc_score\n",
+        "\n",
+        "# Initialize the Random Forest model\n",
+        "# We set n_estimators=100 and a random_state for reproducibility\n",
+        "rf_model = RandomForestClassifier(n_estimators=100, random_state=42, n_jobs=-1)\n",
+        "\n",
+        "# Train the model\n",
+        "rf_model.fit(X_train, y_train)\n",
+        "\n",
+        "# Make predictions\n",
+        "y_pred_train_rf = rf_model.predict(X_train)\n",
+        "y_pred_val_rf = rf_model.predict(X_val)\n",
+        "y_pred_val_proba_rf = rf_model.predict_proba(X_val)[:, 1]\n",
+        "\n",
+        "# Calculate metrics\n",
+        "train_acc_rf = rf_model.score(X_train, y_train)\n",
+        "val_acc_rf = rf_model.score(X_val, y_val)\n",
+        "val_roc_auc_rf = roc_auc_score(y_val, y_pred_val_proba_rf)\n",
+        "\n",
+        "# Display results\n",
+        "print(f\"Random Forest Training Accuracy: {train_acc_rf:.4f}\")\n",
+        "print(f\"Random Forest Validation Accuracy: {val_acc_rf:.4f}\")\n",
+        "print(f\"Random Forest Validation ROC-AUC: {val_roc_auc_rf:.4f}\\n\")\n",
+        "\n",
+        "print(\"Classification Report on Validation Set:\")\n",
+        "print(classification_report(y_val, y_pred_val_rf))"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "colab": {
+          "background_save": true,
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "1c933750",
+        "outputId": "a81f5571-9b98-413b-98a7-59b930560c49"
+      },
+      "outputs": [
+        {
+          "name": "stdout",
+          "output_type": "stream",
+          "text": [
+            "Fitting 5 folds for each of 48 candidates, totalling 240 fits\n",
+            "Best Hyperparameters: {'max_depth': 10, 'max_features': 'sqrt', 'min_samples_leaf': 2, 'min_samples_split': 10, 'n_estimators': 200}\n",
+            "Best CV ROC-AUC: 0.8430\n"
+          ]
+        }
+      ],
+      "source": [
+        "from sklearn.model_selection import GridSearchCV\n",
+        "from sklearn.ensemble import RandomForestClassifier\n",
+        "from sklearn.metrics import classification_report, roc_auc_score\n",
+        "\n",
+        "# Define a parameter grid to regularize the Random Forest\n",
+        "param_grid = {\n",
+        "    'n_estimators': [100, 200],\n",
+        "    'max_depth': [6, 10, 15],\n",
+        "    'min_samples_split': [5, 10],\n",
+        "    'min_samples_leaf': [2, 4],\n",
+        "    'max_features': ['sqrt', 0.5]\n",
+        "}\n",
+        "\n",
+        "# Initialize the base Random Forest model\n",
+        "rf_base = RandomForestClassifier(random_state=42, n_jobs=-1)\n",
+        "\n",
+        "# Set up GridSearchCV targeting ROC-AUC with stratified 5-fold cross-validation\n",
+        "grid_search = GridSearchCV(\n",
+        "    estimator=rf_base,\n",
+        "    param_grid=param_grid,\n",
+        "    scoring='roc_auc',\n",
+        "    cv=5,\n",
+        "    n_jobs=-1,\n",
+        "    verbose=1\n",
+        ")\n",
+        "\n",
+        "# Run the grid search on the training data\n",
+        "grid_search.fit(X_train, y_train)\n",
+        "\n",
+        "# Retrieve the best model and parameters\n",
+        "best_rf_model = grid_search.best_estimator_\n",
+        "print(f\"Best Hyperparameters: {grid_search.best_params_}\")\n",
+        "print(f\"Best CV ROC-AUC: {grid_search.best_score_:.4f}\")"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "fcbeda7c"
+      },
+      "outputs": [],
+      "source": [
+        "# Evaluate the tuned Random Forest model on the training and validation sets\n",
+        "train_acc_tuned = best_rf_model.score(X_train, y_train)\n",
+        "val_acc_tuned = best_rf_model.score(X_val, y_val)\n",
+        "\n",
+        "y_pred_val_tuned = best_rf_model.predict(X_val)\n",
+        "y_pred_val_proba_tuned = best_rf_model.predict_proba(X_val)[:, 1]\n",
+        "val_roc_auc_tuned = roc_auc_score(y_val, y_pred_val_proba_tuned)\n",
+        "\n",
+        "print(f\"Tuned Random Forest Training Accuracy: {train_acc_tuned:.4f}\")\n",
+        "print(f\"Tuned Random Forest Validation Accuracy: {val_acc_tuned:.4f}\")\n",
+        "print(f\"Tuned Random Forest Validation ROC-AUC: {val_roc_auc_tuned:.4f}\\n\")\n",
+        "\n",
+        "print(\"Classification Report on Validation Set (Tuned Model):\")\n",
+        "print(classification_report(y_val, y_pred_val_tuned))"
       ]
     }
-  ]
+  ],
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyPB0dP1KcNYre1TM3wE9x4k",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "display_name": "Python 3",
+      "name": "python3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "nbformat": 4,
+  "nbformat_minor": 0
 }
